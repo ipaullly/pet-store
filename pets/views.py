@@ -8,4 +8,14 @@ from .serializers import PetSerializer
 @api_view(['POST'])
 def get_post_pets(request):
     if request.method == 'POST':
-        return Response({})
+        data = {
+            'name': request.data.get('name'),
+            'age': int(request.data.get('age')),
+            'animal_type': request.data.get('animal_type'),
+            'color': request.data.get('color')
+        }
+        serializer = PetSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
