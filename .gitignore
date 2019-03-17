@@ -1,0 +1,4 @@
+.vscode/
+.coverage
+migrations/
+__pycache__
