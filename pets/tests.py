@@ -1,6 +1,12 @@
-from django.test import TestCase
+import json
+from django.test import TestCase, Client
+from django.urls import reverse
+from .serializers PuppySerializer
 from .models import Pet
+from rest_framework import status
+
 # Create your tests here.
+client = Client()
 
 class PetTest(TestCase):
     """Test module for Pet model"""

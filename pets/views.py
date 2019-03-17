@@ -1,3 +1,11 @@
 from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Pet
+from .serializers import PetSerializer
 
-# Create your views here.
+@api_view(['POST'])
+def get_post_pets(request):
+    if request.method == 'POST':
+        return Response({})
