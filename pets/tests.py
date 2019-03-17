@@ -81,3 +81,25 @@ class GetAllPetsTest(TestCase):
         serializer = PetSerializer(pets, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+class GetSinglePetTest(TestCase):
+    
+    def setUp(self):
+        self.lavender = Pet.objects.create(
+            name='Lavender', age=2, animal_type='Koala', color='Grey'
+        )
+    
+    def test_get_valid_single_pet(self):
+        response = client.get(
+            reverse('get_delete_update_pets', kwargs={'pk': self.lavender.pk})
+        )
+        pet = Pet.objects.get(pk=self.lavender.pk)
+        serializer = PetSerializer(pet)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_invalid_single_pet(self):
+        response = client.get(
+            reverse('get_delete_update_pets', kwargs={'pk': 30})
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
