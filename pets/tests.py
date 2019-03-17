@@ -91,7 +91,7 @@ class GetSinglePetTest(TestCase):
     
     def test_get_valid_single_pet(self):
         response = client.get(
-            reverse('get_delete_update_pet', kwargs={'pk': self.lavender.pk})
+            reverse('get_delete_update_pets', kwargs={'pk': self.lavender.pk})
         )
         pet = Pet.objects.get(pk=self.lavender.pk)
         serializer = PetSerializer(pet)
@@ -100,6 +100,6 @@ class GetSinglePetTest(TestCase):
 
     def test_get_invalid_single_pet(self):
         response = client.get(
-            reverse('get_delete_update_pet', kwargs={'pk': 30})
+            reverse('get_delete_update_pets', kwargs={'pk': 30})
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

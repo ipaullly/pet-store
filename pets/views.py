@@ -23,3 +23,15 @@ def get_post_pets(request):
         pets = Pet.objects.all()
         serializer = PetSerializer(pets, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def get_delete_update_pets(request, pk):
+    try:
+        pet = Pet.objects.get(pk=pk)
+    except Pet.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    # get details of a single puppy
+    if request.method == 'GET':
+        serializer = PetSerializer(pet)
+        return Response(serializer.data)
