@@ -57,3 +57,27 @@ class CreateNewPetTest(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+class GetAllPetsTest(TestCase):
+    """Test module for GET all puppies API"""
+    def setUp(self):
+        Pet.objects.create(
+            name='Casper', age=3, animal_type='Caucasian Mountain dog', color='Blonde'
+        )
+        Pet.objects.create(
+            name='Muffin', age=1, animal_type='Guinea Pig', color='Brown'
+        )
+        Pet.objects.create(
+            name='Rambo', age=2, animal_type='Tortoise', color='Black'
+        )
+        Pet.objects.create(
+            name='Ricky', age=6, animal_type='Parrot', color='Pink and Yellow'
+        )
+    def test_get_all_pets(self):
+        # get API response
+        response = client.get(reverse('get_post_pets'))
+        # get data from db
+        pets = Pet.objects.all()
+        serializer = PetSerializer(pets, many=True)
+        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
