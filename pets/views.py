@@ -5,7 +5,7 @@ from rest_framework import status
 from .models import Pet
 from .serializers import PetSerializer
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def get_post_pets(request):
     if request.method == 'POST':
         data = {
@@ -19,3 +19,7 @@ def get_post_pets(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        pets = Pet.objects.all()
+        serializer = PetSerializer(pets, many=True)
+        return Response(serializer.data)
