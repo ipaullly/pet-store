@@ -1,5 +1,5 @@
 # PET-STORE
-[![Build Status](https://travis-ci.org/ipaullly/pet-store.svg?branch=ch-setup-continuous-coverage)](https://travis-ci.org/ipaullly/pet-store) 
+[![Build Status](https://travis-ci.org/ipaullly/pet-store.svg?branch=ch-setup-continuous-coverage)](https://travis-ci.org/ipaullly/pet-store) [![Coverage Status](https://coveralls.io/repos/github/ipaullly/pet-store/badge.svg?branch=ch-setup-continuous-coverage)](https://coveralls.io/github/ipaullly/pet-store?branch=ch-setup-continuous-coverage) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7a80a9487009409896d40951636ff8aa)](https://www.codacy.com/app/ipaullly/pet-store?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ipaullly/pet-store&amp;utm_campaign=Badge_Grade)
 ### Prerequisites
 the development process utilized the postgres database
 install pipenv using Homebrew
