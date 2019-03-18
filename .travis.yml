@@ -1,0 +1,19 @@
+language: python
+python:
+  - '3.6'
+install:
+  - 'pip install pipenv'
+  - 'pip install coveralls'
+  - 'pipenv install'
+services:
+  - postgresql
+before_script:
+  - psql -c "CREATE DATABASE pet_store;" -U postgres
+  - psql -c "CREATE USER illyrian WITH ENCRYPTED PASSWORD 'storeanimal1920';" -U postgres
+  - psql -c "ALTER USER illyrian CREATEDB;" -U postgres
+  - psql -c "GRANT ALL PRIVILEGES ON DATABASE pet_store TO illyrian;" -U postgres
+script:
+  - 'coverage run --source="." manage.py test'
+  - 'coverage report'
+after_success:
+  - coveralls

@@ -9,7 +9,6 @@ verify_ssl = true
 django = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
-dot-env = "*"
 django-environ = "*"
 coverage = "*"
 
