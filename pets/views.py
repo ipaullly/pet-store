@@ -24,7 +24,7 @@ def get_post_pets(request):
         serializer = PetSerializer(pets, many=True)
         return Response(serializer.data)
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT'])
 def get_delete_update_pets(request, pk):
     try:
         pet = Pet.objects.get(pk=pk)
@@ -35,3 +35,9 @@ def get_delete_update_pets(request, pk):
     if request.method == 'GET':
         serializer = PetSerializer(pet)
         return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = PetSerializer(pet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
