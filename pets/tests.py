@@ -28,7 +28,7 @@ class PetTest(TestCase):
         )
 
 class CreateNewPetTest(TestCase):
-    """Test module for inserting a new puppy"""
+    """Test module for inserting a new pet"""
     def setUp(self):
         self.valid_payload = {
             'name': 'Muffin',
@@ -59,7 +59,7 @@ class CreateNewPetTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 class GetAllPetsTest(TestCase):
-    """Test module for GET all puppies API"""
+    """Test module for GET all pets API"""
     def setUp(self):
         Pet.objects.create(
             name='Casper', age=3, animal_type='Caucasian Mountain dog', color='Blonde'
@@ -103,3 +103,40 @@ class GetSinglePetTest(TestCase):
             reverse('get_delete_update_pets', kwargs={'pk': 30})
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+class UpdateSinglePetTest(TestCase):
+    """Test module for updating an existing pet record"""
+
+    def setUp(self):
+        self.demetrius = Pet.objects.create(
+            name='Demetrius', age=3, animal_type='Gold fish', color='Orange'
+        )
+        self.neoptalamus = Pet.objects.create(
+            name='Neoptalamus', age=1, animal_type='Siamese cat', color='White'
+        )
+        self.valid_payload = {
+            'name': 'Muffy',
+            'age': 2,
+            'animal_type': 'Labrador',
+            'color': 'Black'
+        }
+        self.invalid_payload = {
+            'name': '',
+            'age': 4,
+            'animal_type': 'Pamerion',
+            'color': 'White'
+        }
+    def test_valid_update_pet(self):
+        response = client.put(
+            reverse('get_delete_update_pets', kwargs={'pk': self.neoptalamus.pk}),
+            data=json.dumps(self.valid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    def test_invalid_update_pet(self):
+        response = client.put(
+            reverse('get_delete_update_pets', kwargs={'pk': self.demetrius.pk}),
+            data=json.dumps(self.invalid_payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
