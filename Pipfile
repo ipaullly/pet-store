@@ -11,6 +11,7 @@ djangorestframework = "*"
 psycopg2-binary = "*"
 django-environ = "*"
 coverage = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
