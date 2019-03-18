@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath pet_store.wsgi
+web: gunicorn pet_store.wsgi --log-file -
