@@ -1,5 +1,5 @@
 # PET-STORE
-
+[![Build Status](https://travis-ci.org/ipaullly/pet-store.svg?branch=ch-setup-continuous-coverage)](https://travis-ci.org/ipaullly/pet-store) 
 ### Prerequisites
 the development process utilized the postgres database
 install pipenv using Homebrew
